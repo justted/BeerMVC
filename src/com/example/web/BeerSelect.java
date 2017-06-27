@@ -2,6 +2,7 @@ package com.example.web;
 
 import com.example.model.BeerExpert;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,14 +23,13 @@ public class BeerSelect extends HttpServlet {
         BeerExpert be = new BeerExpert();
         List result = be.getBrands(c);
 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("Beer Selection Advice<br>");
+//        response.setContentType("text/html");
+//        PrintWriter out = response.getWriter();
+//        out.println("Beer Selection Advice<br>");
 
-        Iterator it = result.iterator();
-        while (it.hasNext()){
-            out.print("<br>try: " + it.next());
-        }
+        request.setAttribute("styles", result);
+        RequestDispatcher view = request.getRequestDispatcher("result.jsp");
+        view.forward(request,response);
     }
 
 }
